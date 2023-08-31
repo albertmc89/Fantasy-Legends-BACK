@@ -5,9 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "build:dev": "tsc -w",
+    "start": "node .",
+    "start:dev": "nodemon -q .",
     "test": "jest",
     "test:dev": "jest --watchAll",
-    "prepare": "husky install"
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
