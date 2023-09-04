@@ -8,6 +8,7 @@ export interface PlayerStructure {
   games: number;
   position: string;
   image: string;
+  user: string;
 }
 
 export interface UserStructure {
