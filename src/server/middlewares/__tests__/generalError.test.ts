@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
-import { generalErrorHandler } from "../errors.js";
+import { generalError } from "../errors.js";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -22,7 +22,7 @@ describe("Given an generalErrorHandler middleware", () => {
     );
 
     test("Then it should call it's response status method with the status code '500'", () => {
-      generalErrorHandler(customError, req as Request, res as Response, next);
+      generalError(customError, req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(customError.statusCode);
     });
@@ -32,12 +32,7 @@ describe("Given an generalErrorHandler middleware", () => {
 
       const expectedErrorMessage = "Internal server error";
 
-      generalErrorHandler(
-        error as CustomError,
-        req as Request,
-        res as Response,
-        next,
-      );
+      generalError(error as CustomError, req as Request, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith({ error: expectedErrorMessage });
     });

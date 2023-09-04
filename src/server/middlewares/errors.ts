@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 
-export const generalErrorHandler = (
+export const generalError = (
   error: CustomError,
   _req: Request,
   res: Response,
@@ -13,7 +13,7 @@ export const generalErrorHandler = (
   res.status(statusCode).json({ error: errorMessage });
 };
 
-export const endPointNotFound = (
+export const endpointNotFound = (
   _req: Request,
   res: Response,
   next: NextFunction,
