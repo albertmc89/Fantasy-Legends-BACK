@@ -34,6 +34,10 @@ const playerSchema = new Schema<PlayerStructure>({
     type: String,
     required: true,
   },
+  isBought: {
+    type: Boolean,
+    default: true,
+  },
   user: {
     type: String,
     ref: "User",

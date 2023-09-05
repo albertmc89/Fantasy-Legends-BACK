@@ -1,5 +1,5 @@
 export interface PlayerStructure {
-  id: string;
+  _id: string;
   name: string;
   country: string;
   age: number;
@@ -8,11 +8,12 @@ export interface PlayerStructure {
   games: number;
   position: string;
   image: string;
+  isBought: boolean;
   user: string;
 }
 
 export interface UserStructure {
-  id: string;
+  _id: string;
   name: string;
   authId: string;
 }
