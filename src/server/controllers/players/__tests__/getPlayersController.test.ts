@@ -1,8 +1,8 @@
 import { type NextFunction, type Response, type Request } from "express";
-import Player from "../../database/models/Player";
-import { playersMock } from "../mocks/playersMock";
-import { getPlayersController } from "./playersControllers";
-import CustomError from "../../CustomError/CustomError";
+import Player from "../../../../database/models/Player";
+import { playersMock } from "../../../mocks/playersMock";
+import CustomError from "../../../../CustomError/CustomError";
+import { getPlayersController } from "../playersControllers";
 
 const req: Partial<Request> = {};
 const res: Partial<Response> = {

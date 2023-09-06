@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
-import Player from "../../database/models/Player.js";
-import CustomError from "../../CustomError/CustomError.js";
+import Player from "../../../database/models/Player.js";
+import CustomError from "../../../CustomError/CustomError.js";
 
 export const getPlayersController = async (
   _req: Request,

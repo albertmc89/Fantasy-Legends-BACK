@@ -3,7 +3,7 @@ import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
 import pingController from "./controllers/ping/pingController.js";
-import { endpointNotFound, generalError } from "./middlewares/errors.js";
+import { endpointNotFound, generalError } from "./middlewares/error/errors.js";
 
 const app = express();
 app.disable("x-powered-by");
