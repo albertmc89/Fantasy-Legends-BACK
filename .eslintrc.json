@@ -27,6 +27,7 @@
   },
   "rules": {
     "no-implicit-coercion": "off",
+    "no-console": "error",
     "new-cap": [
       "error",
       {
