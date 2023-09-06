@@ -29,7 +29,6 @@ describe("Given an generalErrorHandler middleware", () => {
 
     test("Then it should call it's json response method with the message 'Internal server error'", () => {
       const error = new Error();
-
       const expectedErrorMessage = "Internal server error";
 
       generalError(error as CustomError, req as Request, res as Response, next);
