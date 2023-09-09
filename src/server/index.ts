@@ -22,9 +22,7 @@ app.use(cors(corsOptions));
 
 app.get("/", pingController);
 
-app.use(auth);
-
-app.use("/players", playersRouter);
+app.use("/players", auth, playersRouter);
 
 app.use(endpointNotFound);
 
