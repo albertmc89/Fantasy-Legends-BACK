@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose";
-import { type PlayerStructure } from "../../types";
 
-const playerSchema = new Schema<PlayerStructure>({
+const playerSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -39,7 +38,7 @@ const playerSchema = new Schema<PlayerStructure>({
     default: true,
   },
   user: {
-    type: String,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
