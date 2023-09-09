@@ -78,4 +78,25 @@ describe("Given an auth middleware", () => {
       expect(next).toHaveBeenCalledWith(error);
     });
   });
+
+  describe("When it receives a valid token, a response and a next function, but there isn't a user", () => {
+    test("Then the next function should be called with 'Couldn't find the user'", async () => {
+      const error = new Error("Couldn't find the user");
+      const req: Partial<Request> = {
+        header: jest.fn().mockReturnValue("token"),
+      };
+
+      admin.auth = jest.fn().mockReturnValue({
+        verifyIdToken: jest.fn().mockResolvedValue(token),
+      });
+
+      User.findOne = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(null),
+      });
+
+      await auth(req as Request, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
 });
