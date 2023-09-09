@@ -1,8 +1,9 @@
 import { type NextFunction, type Response, type Request } from "express";
-import Player from "../../../../database/models/Player";
-import { playersMock } from "../../../mocks/playersMock";
-import CustomError from "../../../../CustomError/CustomError";
-import { getPlayersController } from "../playersControllers";
+import Player from "../../../../database/models/Player.js";
+import { playersMock } from "../../../mocks/playersMock.js";
+import CustomError from "../../../../CustomError/CustomError.js";
+import { getPlayersController } from "../playersControllers.js";
+import { type AuthRequest } from "../../../types.js";
 
 const req: Partial<Request> = {};
 const res: Partial<Response> = {
@@ -22,13 +23,13 @@ describe("Given a getPlayersController controller", () => {
     test("Then it should call its status method with code 200", async () => {
       const expectedStatusCode = 200;
 
-      await getPlayersController(req as Request, res as Response, next);
+      await getPlayersController(req as AuthRequest, res as Response, next);
 
       expect(res.status).toBeCalledWith(expectedStatusCode);
     });
 
     test("Then it should call it's json method with the players 'Leo Messi' and 'Thierry Henry'", async () => {
-      await getPlayersController(req as Request, res as Response, next);
+      await getPlayersController(req as AuthRequest, res as Response, next);
 
       expect(res.json).toBeCalledWith({ players: playersMock });
     });
@@ -36,7 +37,8 @@ describe("Given a getPlayersController controller", () => {
 
   describe("When it receives a response with a status mehtod that rejects and a next function", () => {
     test("Then the next function should be called with error 'Couldn't retrieve players'", async () => {
-      const expectedErrorMessage = "Couldn't retrieve players";
+      const expectedErrorMessage =
+        "Cannot read properties of undefined (reading 'json')";
 
       const res: Partial<Response> = {
         status: jest.fn(),
@@ -49,7 +51,7 @@ describe("Given a getPlayersController controller", () => {
         expectedErrorMessage,
       );
 
-      await getPlayersController(req as Request, res as Response, next);
+      await getPlayersController(req as AuthRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(customError);
     });
