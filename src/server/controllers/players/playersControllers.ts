@@ -1,4 +1,4 @@
-import { type Response, type NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 import Player from "../../../database/models/Player.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import { type PlayerStructure } from "../../../types.js";
@@ -24,6 +24,32 @@ export const getPlayersController = async (
       (error as Error).message,
       404,
       "Couldn't retrieve players",
+    );
+
+    next(customError);
+  }
+};
+
+export const addPlayerController = async (
+  req: Request<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    PlayerStructure
+  >,
+  res: Response,
+  next: NextFunction,
+) => {
+  const player = req.body;
+
+  try {
+    const newPlayer = await Player.create(player);
+
+    res.status(201).json({ player: newPlayer });
+  } catch (error) {
+    const customError = new CustomError(
+      "Couldn't create the player",
+      404,
+      (error as Error).message,
     );
 
     next(customError);
