@@ -1,6 +1,8 @@
 import app from "../..";
 import request from "supertest";
 
+jest.mock("firebase-admin");
+
 describe("Given an endpoint GET '/'", () => {
   describe("When it receives a request", () => {
     test("Then it should should respond  with an status 200 and a message 'pong'", async () => {
