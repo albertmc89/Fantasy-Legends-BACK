@@ -2,12 +2,20 @@ import { type NextFunction, type Response, type Request } from "express";
 import admin from "firebase-admin";
 import { type AuthRequest } from "../../../types";
 import auth from "../auth";
-import CustomError from "../../../../CustomError/CustomError";
+import CustomError from "../../../../CustomError/CustomError.js";
 import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
+import User from "../../../../database/models/User";
+import { userMock } from "../../../mocks/usersMock";
 
 jest.mock("firebase-admin");
 
-const token = {};
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+const token: Partial<DecodedIdToken> = {
+  authId: "8w33480basjdb23k2",
+};
 
 describe("Given an auth middleware", () => {
   const res: Partial<Response> = {};
@@ -16,12 +24,16 @@ describe("Given an auth middleware", () => {
   describe("When it receives a request with a valid token, and a next function", () => {
     test("Then it should call the function next", async () => {
       const req: Partial<Request> = {
-        header: jest.fn().mockReturnValue("token"),
+        header: jest.fn().mockReturnValue("8w33480basjdb23k2"),
       };
 
       admin.auth = jest.fn().mockReturnValue({
         verifyIdToken: jest.fn().mockResolvedValue(token),
       });
+
+      User.findOne = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockResolvedValue(userMock) });
 
       await auth(req as AuthRequest, res as Response, next);
 
@@ -58,12 +70,12 @@ describe("Given an auth middleware", () => {
       const error = new Error("Invalid token");
 
       admin.auth = jest.fn().mockReturnValue({
-        verifyIdToken: jest.fn().mockRejectedValue(token as DecodedIdToken),
+        verifyIdToken: jest.fn().mockRejectedValue(error),
       });
 
       await auth(req as AuthRequest, res as Response, next);
 
-      expect(next).toHaveBeenCalledWith(error as CustomError);
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
