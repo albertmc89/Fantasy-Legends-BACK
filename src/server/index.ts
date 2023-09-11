@@ -9,6 +9,17 @@ import auth from "./middlewares/auth/auth.js";
 
 const corsOptions = {
   origin: [process.env.ALLOW_PROD_ORIGIN!, process.env.ALLOW_LOCAL_ORIGIN!],
+  allowedHeaders: [
+    "Content-Type",
+    "Origin",
+    "X-Requested-With",
+    "Accept",
+    "x-client-key",
+    "x-client-token",
+    "x-client-secret",
+    "Authorization",
+  ],
+  credentials: true,
   withCredentials: true,
 };
 
