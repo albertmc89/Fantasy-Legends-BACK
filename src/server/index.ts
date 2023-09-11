@@ -7,18 +7,19 @@ import { endpointNotFound, generalError } from "./middlewares/error/errors.js";
 import playersRouter from "./routers/playersRouters.js";
 import auth from "./middlewares/auth/auth.js";
 
+const corsOptions = {
+  origin: [process.env.ALLOW_PROD_ORIGIN!, process.env.ALLOW_LOCAL_ORIGIN!],
+  withCredentials: true,
+};
+
 const app = express();
 app.disable("x-powered-by");
 
-const corsOptions = {
-  origin: [process.env.ALLOW_PROD_ORIGIN!, process.env.ALLOW_LOCAL_ORIGIN!],
-};
+app.use(cors(corsOptions));
 
 app.use(morgan("dev"));
 
 app.use(express.json());
-
-app.use(cors(corsOptions));
 
 app.get("/", pingController);
 
