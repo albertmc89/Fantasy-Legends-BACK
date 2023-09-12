@@ -1,5 +1,5 @@
-import cors from "cors";
 import "dotenv/config";
+import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import pingController from "./controllers/ping/pingController.js";
@@ -9,12 +9,6 @@ import auth from "./middlewares/auth/auth.js";
 
 const corsOptions = {
   origin: [process.env.ALLOW_PROD_ORIGIN!, process.env.ALLOW_LOCAL_ORIGIN!],
-  headers: [
-    {
-      key: "Access-Control-Allow-Origin",
-      value: "*",
-    },
-  ],
 };
 
 const app = express();
