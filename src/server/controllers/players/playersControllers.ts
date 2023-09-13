@@ -14,9 +14,7 @@ export const getPlayersController = async (
   try {
     const _id = req.userId;
 
-    const players = await Player.find<PlayerStructure[]>({ user: _id })
-      .limit(limitRequest)
-      .exec();
+    const players = await Player.find({ user: _id }).limit(limitRequest).exec();
 
     res.status(200).json({ players });
   } catch (error: unknown) {
@@ -49,6 +47,33 @@ export const addPlayerController = async (
     const customError = new CustomError(
       "Couldn't create the player",
       404,
+      (error as Error).message,
+    );
+
+    next(customError);
+  }
+};
+
+export const deletePlayerByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { idPlayer } = req.params;
+
+  try {
+    const player = await Player.findByIdAndDelete({ _id: idPlayer }).exec();
+
+    if (!player) {
+      next(new CustomError("Player not found", 404, "Player not found"));
+      return;
+    }
+
+    res.status(200).json({ message: "Player successfully deleted" });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      "Can't delete player",
+      500,
       (error as Error).message,
     );
 
