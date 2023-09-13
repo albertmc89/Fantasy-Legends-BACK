@@ -5,7 +5,7 @@ import { addPlayerController } from "../playersControllers.js";
 import { playerCreatedMock } from "../../../mocks/playersMock.js";
 import CustomError from "../../../../CustomError/CustomError.js";
 
-describe("Given an addRobot controller", () => {
+describe("Given an addPlayerController controller", () => {
   const req: Partial<Request> = {};
   const res: Partial<Response> = {
     status: jest.fn().mockReturnThis(),
@@ -13,7 +13,7 @@ describe("Given an addRobot controller", () => {
   };
   const next: NextFunction = jest.fn();
 
-  describe("When it receives a request with a new Robot, a response and a next function", () => {
+  describe("When it receives a request with a new player, a response and a next function", () => {
     Player.create = jest.fn().mockResolvedValue(playerCreatedMock);
 
     test("Then it should repond with status 201", async () => {

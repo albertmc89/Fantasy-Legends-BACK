@@ -55,10 +55,10 @@ describe("Given a GET '/players' endpoint", () => {
       const responseBody = response.body as { players: PlayerStructure[] };
 
       responseBody.players.forEach(
-        (player: PlayerStructure, playerPosisiton) => {
+        (player: PlayerStructure, playerPosition) => {
           expect(player).toHaveProperty(
             "name",
-            playersMock[playerPosisiton].name,
+            playersMock[playerPosition].name,
           );
         },
       );
