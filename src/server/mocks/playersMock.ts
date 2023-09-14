@@ -2,9 +2,11 @@ import { type PlayerStructure } from "../../types";
 import mongoose from "mongoose";
 import { userMongooseId } from "./usersMock";
 
+export const playerIdMock1 = new mongoose.Types.ObjectId().toString();
+
 export const playersMock: PlayerStructure[] = [
   {
-    _id: new mongoose.Types.ObjectId().toString(),
+    _id: playerIdMock1,
     name: "Leo Messi",
     country: "Argentina",
     age: 36,
