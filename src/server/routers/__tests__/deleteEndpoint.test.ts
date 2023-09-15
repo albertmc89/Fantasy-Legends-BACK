@@ -32,7 +32,7 @@ afterAll(async () => {
   await server.stop();
 });
 
-describe(`Given a GET '/players/:idPlayer' endpoint`, () => {
+describe(`Given a DELETE '/players/:idPlayer' endpoint`, () => {
   beforeEach(async () => {
     await Player.create(playersMock);
     await User.create(userMock);
