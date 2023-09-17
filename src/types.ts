@@ -10,6 +10,7 @@ export interface PlayerStructure {
   image: string;
   isBought: boolean;
   user: string;
+  __v?: number;
 }
 
 export interface UserStructure {

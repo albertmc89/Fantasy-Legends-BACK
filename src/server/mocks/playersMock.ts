@@ -80,3 +80,19 @@ export const playerCreatedMock: Omit<PlayerStructure, "_id"> = {
   isBought: true,
   user: new mongoose.Types.ObjectId().toString(),
 };
+
+export const postPlayerMock: PlayerStructure = {
+  _id: new mongoose.Types.ObjectId().toString(),
+  name: "Zinedine Zidane",
+  country: "France",
+  age: 42,
+  height: 188,
+  goals: 416,
+  games: 922,
+  position: "MD",
+  image:
+    "https://tmssl.akamaized.net/images/foto/galerie/thierry-henry-1417524348-3352.jpg?lm=1483605830",
+  isBought: true,
+  user: userMongooseId,
+  __v: 0,
+};
