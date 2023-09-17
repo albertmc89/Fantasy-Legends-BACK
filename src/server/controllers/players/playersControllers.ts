@@ -76,3 +76,25 @@ export const deletePlayerByIdController = async (
     next(customError);
   }
 };
+
+export const getPlayerByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { idPlayer } = req.params;
+
+  try {
+    const player = await Player.findById(idPlayer).exec();
+
+    res.status(200).json({ player });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      "Can't retrieve player",
+      500,
+      (error as Error).message,
+    );
+
+    next(customError);
+  }
+};
