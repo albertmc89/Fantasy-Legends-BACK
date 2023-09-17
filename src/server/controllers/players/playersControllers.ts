@@ -1,8 +1,7 @@
 import { type Request, type Response, type NextFunction } from "express";
 import Player from "../../../database/models/Player.js";
 import CustomError from "../../../CustomError/CustomError.js";
-import { type PlayerStructure } from "../../../types.js";
-import { type AuthRequest } from "../../types.js";
+import { type RequestWithBody, type AuthRequest } from "../../types.js";
 
 export const getPlayersController = async (
   req: AuthRequest,
@@ -29,18 +28,15 @@ export const getPlayersController = async (
 };
 
 export const addPlayerController = async (
-  req: Request<
-    Record<string, unknown>,
-    Record<string, unknown>,
-    PlayerStructure
-  >,
+  req: RequestWithBody,
   res: Response,
   next: NextFunction,
 ) => {
   const player = req.body;
+  const _id = req.userId;
 
   try {
-    const newPlayer = await Player.create(player);
+    const newPlayer = await Player.create({ ...player, user: _id });
 
     res.status(201).json({ player: newPlayer });
   } catch (error) {
