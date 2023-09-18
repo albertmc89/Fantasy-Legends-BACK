@@ -1,7 +1,11 @@
 import { type Request, type Response, type NextFunction } from "express";
 import Player from "../../../database/models/Player.js";
 import CustomError from "../../../CustomError/CustomError.js";
-import { type RequestWithBody, type AuthRequest } from "../../types.js";
+import {
+  type RequestWithBody,
+  type AuthRequest,
+  type AuthRequestWithBooleanBody,
+} from "../../types.js";
 
 export const getPlayersController = async (
   req: AuthRequest,
@@ -93,6 +97,35 @@ export const getPlayerByIdController = async (
       "Can't retrieve player",
       500,
       (error as Error).message,
+    );
+
+    next(customError);
+  }
+};
+
+export const modifyByIdController = async (
+  req: AuthRequestWithBooleanBody,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { idPlayer } = req.params;
+    const { isBought } = req.body;
+
+    const modifiedPlayer = await Player.findByIdAndUpdate(
+      { _id: idPlayer },
+      {
+        isBought: !isBought,
+      },
+      { returnDocument: "after" },
+    ).exec();
+
+    res.status(200).json({ player: modifiedPlayer });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Couldn't modify the player",
     );
 
     next(customError);
