@@ -18,3 +18,15 @@ export interface UserStructure {
   name: string;
   authId: string;
 }
+
+export interface ReceivedPlayer {
+  name: string;
+  country: string;
+  age: number;
+  height: number;
+  goals: number;
+  games: number;
+  position: string;
+  image: string;
+  isBought: boolean;
+}

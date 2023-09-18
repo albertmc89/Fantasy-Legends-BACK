@@ -1,4 +1,4 @@
-import { type PlayerStructure } from "../../types";
+import { type ReceivedPlayer, type PlayerStructure } from "../../types";
 import mongoose from "mongoose";
 import { userMongooseId } from "./usersMock";
 
@@ -119,3 +119,16 @@ export const playerByIdMock: PlayerStructure[] = [
     __v: 0,
   },
 ];
+
+export const receivedPlayer: ReceivedPlayer = {
+  name: "Zinedine Zidane",
+  country: "France",
+  age: 42,
+  height: 188,
+  goals: 416,
+  games: 922,
+  position: "MD",
+  image:
+    "https://tmssl.akamaized.net/images/foto/galerie/thierry-henry-1417524348-3352.jpg?lm=1483605830",
+  isBought: true,
+};
