@@ -22,7 +22,9 @@ app.use(express.json());
 
 app.get("/", pingController);
 
-app.use("/players", auth, playersRouter);
+app.use(auth);
+
+app.use("/players", playersRouter);
 
 app.use(endpointNotFound);
 
